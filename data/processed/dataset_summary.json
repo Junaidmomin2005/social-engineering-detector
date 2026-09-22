@@ -1,0 +1,48 @@
+{
+  "source_dataset_sha256": "ec96f27238a56406482fc5257e1d273b607577fff177e587e51d0da0af217344",
+  "source_dataset_rows": 20000,
+  "source_dataset_columns": 15,
+  "primary_target": "Conversational Authenticity",
+  "secondary_target": "Threat Severity",
+  "primary_feature": "conversation_text",
+  "lexical_features": [
+    "text_length",
+    "word_count",
+    "exclamation_count",
+    "question_count",
+    "uppercase_ratio",
+    "digit_count",
+    "url_present",
+    "urgency_keyword_present",
+    "sensitive_request_keyword_present"
+  ],
+  "excluded_leakage_columns": [
+    "conversation_id",
+    "suggested_action",
+    "Conversation Type",
+    "Manipulation Type",
+    "Malicious",
+    "Impersonation",
+    "Conversational Authenticity",
+    "Threat Severity"
+  ],
+  "tabular_metadata_columns": [
+    "task_domain",
+    "channel",
+    "Communication Medium",
+    "Emotional State",
+    "Verification Behavior",
+    "urgency_score_0_10"
+  ],
+  "splits": {
+    "train_rows": 14000,
+    "val_rows": 3000,
+    "test_rows": 3000,
+    "random_seed": 42,
+    "train_ratio": 0.7,
+    "val_ratio": 0.15,
+    "test_ratio": 0.15,
+    "stratified_by": "Conversational Authenticity"
+  },
+  "source_unmodified": true
+}
