@@ -1,0 +1,128 @@
+Yes. Since this is a Python + FastAPI + scikit-learn project, moving it to another PC is straightforward.
+
+### On the new PC
+
+First install:
+
+* **Git**
+* **Python 3.12** (your project was built/tested with Python 3.12)
+* Optional: **VS Code / Antigravity / IntelliJ**
+
+Then clone the repository:
+
+```powershell
+git clone https://github.com/YOUR_USERNAME/social-engineering-detector.git
+cd social-engineering-detector
+```
+
+### 1. Create a virtual environment
+
+```powershell
+python -m venv .venv
+```
+
+Activate it:
+
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+If PowerShell blocks activation, you can use:
+
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+.venv\Scripts\Activate.ps1
+```
+
+You should then see something like:
+
+```text
+(.venv) PS C:\...\social-engineering-detector>
+```
+
+### 2. Install dependencies
+
+Your project already has `requirements.txt`, so:
+
+```powershell
+pip install -r backend\requirements.txt
+```
+
+If your `requirements.txt` is actually in the project root instead, use:
+
+```powershell
+pip install -r requirements.txt
+```
+
+### 3. Run the application
+
+From the **project root**:
+
+```powershell
+uvicorn backend.app.main:app --reload
+```
+
+You should get something similar to:
+
+```text
+Uvicorn running on http://127.0.0.1:8000
+```
+
+Open:
+
+[http://127.0.0.1:8000/](http://127.0.0.1:8000/?utm_source=chatgpt.com)
+
+And your application should appear.
+
+### Your complete "new PC" process
+
+```text
+Install Git
+    ↓
+Install Python 3.12
+    ↓
+git clone <GitHub repo>
+    ↓
+cd social-engineering-detector
+    ↓
+python -m venv .venv
+    ↓
+.venv\Scripts\Activate.ps1
+    ↓
+pip install -r backend\requirements.txt
+    ↓
+uvicorn backend.app.main:app --reload
+    ↓
+Open localhost:8000
+```
+
+### One important thing
+
+Your trained model files (`.pkl`) are important. If they're committed to GitHub, cloning the repository gives the new PC the trained model too, so **you don't need to retrain**.
+
+If you put the `.pkl` files in `.gitignore`, then the new PC won't have the model and we'd need to either retrain or transfer the artifacts separately.
+
+So **before your first push**, I'd specifically check:
+
+```powershell
+git status
+```
+
+and make sure these are included:
+
+```text
+backend/ml/artifacts/
+    ├── model.pkl
+    └── tfidf_vectorizer.pkl
+```
+
+while things like this should generally **not** be committed:
+
+```text
+.venv/
+__pycache__/
+*.pyc
+.env
+```
+
+For your college project, I'd also add a **README.md with these exact setup/run instructions**, so anyone cloning the repo—including your professor or teammate—can understand how to run it.
